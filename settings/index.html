@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeautherX Docs</title>
+    <script src="https://kit.fontawesome.com/e674bba739.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./../style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="./../">Home</a>
+        <a href="./../about">about</a>
+        <a href="./../supported‐devices">supported‐devices</a>
+        <a href="./../Installation">Installation</a>
+        
+        <a href="./../serial-commands">serial-commands</a>
+        <a href="./../settings" class="active">settings</a>
+        <a href="./../Display-and-button-Setup">Display-and-button-Setup</a>
+    </div>
+    
+    <div class="content">
+    <h1>DeautherX</h1>
+         
+        <div class="info-box">
+            <h1>Settings</h1>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Setting</th>
+                        <th>Default</th>
+                        <th>Info</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>version</td>
+                        <td></td>
+                        <td>Version number, i.e. v1.0. Can only be changed in the source code.</td>
+                    </tr>
+                    <tr>
+                        <td>ssid</td>
+                        <td>DeautherX</td>
+                        <td>SSID of access point used for the web interface (if enabled). The length must be between 1 and 31 characters.</td>
+                    </tr>
+                    <tr>
+                        <td>password</td>
+                        <td>BlackTechX</td>
+                        <td>Password of access point used for the web interface (if enabled). The length must be between 8 and 31 characters.</td>
+                    </tr>
+                    <tr>
+                        <td>channel</td>
+                        <td>1</td>
+                        <td>Default WiFi channel used when starting.</td>
+                    </tr>
+                    <tr>
+                        <td>hidden</td>
+                        <td>false</td>
+                        <td>Hides the access point used for the web interface.</td>
+                    </tr>
+                    <tr>
+                        <td>captivePortal</td>
+                        <td>true</td>
+                        <td>Enables captive portal for access point (if enabled).</td>
+                    </tr>
+                    <tr>
+                        <td>lang</td>
+                        <td>en</td>
+                        <td>Default language for the web interface. Be sure the language file exists!</td>
+                    </tr>
+                    <tr>
+                        <td>autosave</td>
+                        <td>true</td>
+                        <td>Enables automatic saving of SSIDs, device names, and settings.</td>
+                    </tr>
+                    <tr>
+                        <td>autosaveTime</td>
+                        <td>30000</td>
+                        <td>Time interval for automatic saving in milliseconds.</td>
+                    </tr>
+                    <tr>
+                        <td>displayInterface</td>
+                        <td>false</td>
+                        <td>Enables display interface.</td>
+                    </tr>
+                    <tr>
+                        <td>displayTimeout</td>
+                        <td>600</td>
+                        <td>Time in seconds, after which the display turns off when inactive. To disable the timeout, set it to 0.</td>
+                    </tr>
+                    <tr>
+                        <td>serialInterface</td>
+                        <td>true</td>
+                        <td>Enables serial interface.</td>
+                    </tr>
+                    <tr>
+                        <td>serialEcho</td>
+                        <td>true</td>
+                        <td>Enables echo for each incoming message over serial.</td>
+                    </tr>
+                    <tr>
+                        <td>webInterface</td>
+                        <td>false</td>
+                        <td>Enables web interface.</td>
+                    </tr>
+                    <tr>
+                        <td>webSpiffs</td>
+                        <td>false</td>
+                        <td>Enables SPIFFS for all web files. Makes uploading new web files easier, at the cost of longer loading times.</td>
+                    </tr>
+                    <tr>
+                        <td>ledEnabled</td>
+                        <td>true</td>
+                        <td>Enables the (RGB) LED feature.</td>
+                    </tr>
+                    <tr>
+                        <td>maxCh</td>
+                        <td>13</td>
+                        <td>Max channel to scan on. US = 11, EU = 13, Japan = 14.</td>
+                    </tr>
+                    <tr>
+                        <td>macAP</td>
+                        <td></td>
+                        <td>Mac address used for the access point mode. Set a random mac address with set macap random.</td>
+                    </tr>
+                    <tr>
+                        <td>macSt</td>
+                        <td></td>
+                        <td>Mac address used for the station mode. Set a random mac address with set macst random.</td>
+                    </tr>
+                    <tr>
+                        <td>chTime</td>
+                        <td>384</td>
+                        <td>Time for scanning one channel before going to the next in milliseconds (only if channel hopping is enabled).</td>
+                    </tr>
+                    <tr>
+                        <td>minDeauths</td>
+                        <td>3</td>
+                        <td>Minimum number of deauthentication frames when scanning to change the LED to deauth mode.</td>
+                    </tr>
+                    <tr>
+                        <td>attackTimeout</td>
+                        <td>600</td>
+                        <td>Amount of time (in seconds), after which the attack will stop automatically. Set it to 0 to disable it.</td>
+                    </tr>
+                    <tr>
+                        <td>forcePackets</td>
+                        <td>1</td>
+                        <td>How many attempts to send out a packet. Set this value higher to achieve a better packet rate in a busy area. This setting could make the device slower or more unstable. Max value is 255.</td>
+                    </tr>
+                    <tr>
+                        <td>deauthsPerTarget</td>
+                        <td>10</td>
+                        <td>Amount of deauthentication and disassociation frames sent per target.</td>
+                    </tr>
+                    <tr>
+                        <td>deauthReason</td>
+                        <td>1</td>
+                        <td>The reason code sent in the deauth frames. Tells the target device why the connection will be closed.</td>
+                    </tr>
+                    <tr>
+                        <td>beaconChannel</td>
+                        <td>false</td>
+                        <td>Sends all beacon and probe frames on different channels.</td>
+                    </tr>
+                    <tr>
+                        <td>beaconInterval</td>
+                        <td>false</td>
+                        <td>Send beacon frame each second (true). Or send them each 100ms (false). A longer interval means more stability and less spamming of packets, but it could take longer until clients see them.</td>
+                    </tr>
+                    <tr>
+                        <td>randomTX</td>
+                        <td>false</td>
+                        <td>Enables randomized transmission power for sending out beacon and probe request frames.</td>
+                    </tr>
+                    <tr>
+                        <td>probesPerSSID</td>
+                        <td>1</td>
+                        <td>How many probe requests send per SSID.</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <h2>Changing Settings (Web Interface)</h2>
+            <ol>
+                <li>Connect to the WiFi network <strong>DeautherX</strong> with password <strong>BlackTechX</strong></li>
+                <li>Open <strong>192.168.4.1</strong> in a browser</li>
+                <li>Navigate to Settings (navbar on the right)</li>
+                <li>Adjust the settings to your preference</li>
+                <li>Click save (on the left, above the list)</li>
+            </ol>
+            
+        
+            <h2>Changing Settings (Serial)</h2>
+            <ol>
+                <li>Open a Serial Terminal of your choice</li>
+                <li>Connect your Deauther/ESP8266 Board (115200 baud, \n)</li>
+                <li>To view your current settings type <code>get settings</code></li>
+                <li>To change a setting, use the set command. For example: <code>set password "my new cool pswd"</code></li>
+                <li>To save your settings type <code>save</code></li>
+            </ol>
+         
+
+        </div>
+        <hr>
+       
+        <div class="footer">
+            <a></a>
+            <h5><a href="./../display-interface">display-interface »</a></h5>
+        </div>
+    </div>
+</body>
+</html>
