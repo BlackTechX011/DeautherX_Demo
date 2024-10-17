@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeautherX Docs</title>
+    <script src="https://kit.fontawesome.com/e674bba739.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./../style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="./../">Home</a>
+        <a href="./../about">about</a>
+        <a href="./../supported‐devices">supported‐devices</a>
+        <a href="./../Installation" class="active">Installation</a>
+        
+        <a href="./../serial-commands">serial-commands</a>
+        <a href="./../settings">settings</a>
+        <a href="./../Display-and-button-Setup">Display-and-button-Setup</a>
+    </div>
+    
+    <div class="content">
+    <h1>DeautherX</h1>
+         
+        <div class="info-box">
+            <h3>An DeautherX with Evil Twin attack.</h3>
+            <a href="https://github.com/BlackTechX011/DeautherX/">BlackTechX011/DeautherX</a>
+            
+        </div>
+      
+      
+    <h2> <i class="fa-solid fa-tools"></i> Installation </h2>
+    <ul>
+
+       <li> visit <div class="info-box"><a href="https://blacktechx011.github.io/DeautherX_Web_Tools/">blacktechx011.github.io/DeautherX_Web_Tools</a></div></li>
+       <li> Select your esp8266 boad</li>
+       <li> Select display type</li>
+       <li> Connect your ESP8266 board via USB</li>
+       <li> Click Connect and Select the serial port of your ESP</li>
+       <li> on Device Dashboard Click on install</li>
+    </ul>
+    <h2> <i class="fa-solid fa-search"></i>  Finding the correct port  </h2>
+        <p>If you don't know which serial port to select, open the Flasher tool and then plug in your board. Whatever port pops up in the list is what you're looking for.</p>
+        
+        <p>You should check the cable and USB port if no new port pops up. Some USB cables are only for charging and cannot transmit data.</p>
+        
+        <p>Or maybe you're missing the drivers for your device:</p>
+        
+        <div class="info-box">
+        <p>CH340/CH341 Drivers: <a href="https://www.wch-ic.com/downloads/CH341SER_ZIP.html">www.wch-ic.com/downloads/CH341SER_ZIP.html</a></p>
+        <p>CP210x Drivers: <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers">www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers</a></p>
+        <p>FTDI Drivers: <a href="https://ftdichip.com/drivers/">ftdichip.com/drivers/</a></p>
+        </div>
+        <h2>Alternative Tools</h2>
+        <p>my web tool is not the only software you can use to flash your ESP8266:</p>
+        
+        <div class="info-box">
+        <li><a href="https://github.com/espressif/esptool">esptool</a></li>
+        <li><a href="https://www.espressif.com/en/support/download/other-tools">ESP flash download tools</a></li>
+        <li><a href="https://github.com/Rodmg/esptool-gui">esptool-gui</a></li>
+        </div>
+        <hr>
+        <br>
+        <br>
+        <h2>Arduino IDE</h2>
+        <div class="info-box">
+        <ol>
+            <li>Extract the DeautherX zip you <a href="https://github.com/BlackTechX011/DeautherX.git">downloaded</a></li>
+            <li>Go into the <code>DeautherX</code> folder and open <code>DeautherX.ino</code> with Arduino IDE</li>
+            <li>In Arduino IDE, go to <code>File</code> &gt; <code>Preferences</code> and add this URL to the <code>Additional Boards Manager URLs</code>:
+            <code>https://raw.githubusercontent.com/SpacehuhnTech/arduino/main/package_spacehuhn_index.json</code></li>
+            <li>Now go to <code>Tools</code> &gt; <code>Board</code> &gt; <code>Boards Manager</code>, search <code>deauther</code>, and install <code>Deauther ESP8266 Boards</code></li>
+            <li>Select your board at <code>Tools</code> &gt; <code>Board</code> and be sure it is at <code>Deauther ESP8266 Boards</code> (and <strong>not</strong> at <code>ESP8266 Modules</code>)!</li>
+            <li>Plugin your Deauther and select its COM port at <code>Tools</code> &gt; <code>Port</code></li>
+            <li>Optional: To reset/override previous settings select <code>Tools</code> &gt; <code>Erase Flash</code> &gt; <code>All Flash Contents</code></li>
+            <li>Press upload</li>
+        </ol>
+        </div>
+        <hr>
+       
+        <div class="footer">
+            <a></a>
+            <h5><a href="./../supported‐devices">supported‐devices »</a></h5>
+        </div>
+    </div>
+</body>
+</html>
