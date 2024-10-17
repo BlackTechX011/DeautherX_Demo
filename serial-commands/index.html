@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeautherX Docs</title>
+    <script src="https://kit.fontawesome.com/e674bba739.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./../style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="./../">Home</a>
+        <a href="./../about">about</a>
+        <a href="./../supported‐devices">supported‐devices</a>
+        <a href="./../Installation">Installation</a>
+        
+        <a href="./../serial-commands" class="active">serial-commands</a>
+        <a href="./../settings">settings</a>
+        <a href="./../Display-and-button-Setup">Display-and-button-Setup</a>
+    </div>
+    
+    <div class="content">
+    <h1>DeautherX</h1>
+    <div class="info-box">
+    <h2><i class="fa-solid fa-code"></i>  Serial Commands</h2>
+    <p>You can use my <a href="https://github.com/BlackTechX011/DeautherX_Web_Tools/" target="_blank">deautherX web tools</a> for serial commands.</p>
+    
+    <h2>HELP</h2>
+    <pre><code>help</code></pre>
+    <p>Prints a list of all available commands.</p>
+    
+    <h2>SCAN</h2>
+    <pre><code>scan [&lt;all/aps/stations/wifi&gt;] [-t &lt;time&gt;] [-c &lt;continue-time&gt;] [-ch &lt;channel&gt;]</code></pre>
+    <p><strong>Starts a scan with the given parameters.</strong></p>
+    <p><strong>Modes</strong> (optional, default = all):</p>
+    <ul>
+        <li>all (-a)</li>
+        <li>access points (-ap)</li>
+        <li>stations (-st)</li>
+        <li>wifi (-w)</li>
+    </ul>
+    <p><strong>Note:</strong> The mode must be the first parameter!</p>
+    <p><strong>Time</strong> [-t] (optional, default = 15s): Specifies how long to scan for stations (client devices) in seconds.</p>
+    <p><strong>Continue</strong> [-c] (optional): Specifies how many seconds until the next scan.</p>
+    <p><strong>Channel</strong> [-ch] (optional): Scans only on a specific channel instead of automatically cycling through them.</p>
+    <p>To scan indefinitely, set the time to 0, e.g., <code>scan stations -t 0</code>.</p>
+    <p>The difference between the <code>stations</code> and <code>wifi</code> modes is that <code>stations</code> will only scan on channels used by at least one access point. The <code>wifi</code> scan mode does not require an initial access point scan and is recommended for using the deauth detection and packet monitor features.</p>
+    
+    <h2>SHOW</h2>
+    <pre><code>show [&lt;all/aps/stations/names/ssids&gt;]</code></pre>
+    <pre><code>show selected [&lt;all/aps/stations/names/ssids&gt;]</code></pre>
+    <p>Prints the scan results (access points and stations), saved device names, and saved SSIDs.</p>
+    <p><strong>Selected</strong> (optional, default = false): Only the selected targets are printed.</p>
+    <p><strong>Types</strong> (optional, default = all):</p>
+    <ul>
+        <li>all (-a)</li>
+        <li>access points (-ap)</li>
+        <li>stations (-st)</li>
+        <li>names (-b)</li>
+        <li>SSIDs (-ss)</li>
+    </ul>
+    
+    <h2>SELECT/DESELECT</h2>
+    <pre><code>select [&lt;all/aps/stations/names&gt;] [&lt;id&gt;]</code></pre>
+    <pre><code>deselect [&lt;all/aps/stations/names&gt;] [&lt;id&gt;]</code></pre>
+    <p>(De)Selects a specific or all access points, stations, and device names.</p>
+    <p><strong>Types</strong> (optional, default = all):</p>
+    <ul>
+        <li>all (-a)</li>
+        <li>access points (-ap)</li>
+        <li>stations (-st)</li>
+        <li>names (-b)</li>
+    </ul>
+    <p><strong>ID</strong> (optional): The ID of the AP/station/device you want to select.</p>
+    
+    <h2>ADD SSID</h2>
+    <pre><code>add ssid &lt;ssid&gt; [-wpa2] [-cl &lt;clones&gt;] [-f]</code></pre>
+    <p>Adds the specified SSID with the given parameters to the list.</p>
+    <p><strong>SSID</strong>: The SSID you want to add to the list.</p>
+    <p><strong>-wpa2</strong> (optional, default = false): Specifies if the SSID should be an open or WPA2 encrypted network.</p>
+    <p><strong>Clones</strong> [-cl] (optional, default = 0): Specifies how many SSIDs you want to add with that name.</p>
+    <p><strong>Force</strong> [-f] (optional, default = false): Forces the addition of the SSID, even if the list is full.</p>
+
+    <pre><code>add ssid -ap &lt;id&gt; [-cl &lt;clones&gt;] [-f]</code></pre>
+    <p>Copies the SSID from a scanned access point and adds it to the list.</p>
+    <p><strong>Clones</strong> [-cl] (optional, default = 0): Specifies how many SSIDs you want to add with that name.</p>
+    <p><strong>Force</strong> [-f] (optional, default = false): Forces the addition of the SSID, even if the list is full.</p>
+
+    <pre><code>add ssid -s [-f]</code></pre>
+    <p>Copies SSIDs from selected access points into the list.</p>
+    <p><strong>Force</strong> [-f] (optional, default = false): Forces the addition of the SSID and overwrites old SSIDs.</p>
+    
+    <h2>ADD NAME</h2>
+    <pre><code>add name &lt;name&gt; -ap &lt;id&gt; [-s] [-f]</code></pre>
+    <pre><code>add name &lt;name&gt; -st &lt;id&gt; [-s] [-f]</code></pre>
+    <pre><code>add name &lt;name&gt; -m &lt;mac&gt; [-ch &lt;channel&gt;] [-b &lt;bssid&gt;] [-s] [-f]</code></pre>
+    <p>Saves a device with the given name and parameters.</p>
+    <p><strong>Name</strong> [-n]: The name you want to give the device (max. 16 characters).</p>
+    <p><strong>AP</strong> [-ap]: Access point you want to save.</p>
+    <p><strong>Station</strong> [-st]: Station you want to save.</p>
+    <p><strong>MAC</strong> [-m]: MAC address of the device.</p>
+    <p><strong>Channel</strong> [-ch] (optional, default = current channel): The channel the device is on.</p>
+    <p><strong>BSSID</strong> [-b] (optional, default = NULL): The MAC address of the access point to which it is connected.</p>
+    <p><strong>Select</strong> [-s] (optional, default = false): Select the device after adding it.</p>
+    <p><strong>Force</strong> [-f] (optional, default = false): Forces the addition of a name, even if the list is full.</p>
+    
+    <h2>REPLACE NAME</h2>
+    <pre><code>replace name &lt;id&gt; [-n &lt;name&gt;] [-m &lt;mac&gt;] [-ch &lt;channel&gt;] [-b &lt;bssid&gt;] [-s]</code></pre>
+    <p>Removes the name with the given ID and creates a new one with the specified parameters.</p>
+    
+    <h2>SET NAME</h2>
+    <pre><code>set name &lt;id&gt; &lt;newname&gt;</code></pre>
+    <p>Changes the name of a saved device.</p>
+    <p><strong>ID</strong>: The ID of the saved name you want to change.</p>
+    <p><strong>New Name</strong>: The new name you want to assign to that device.</p>
+    <h2>RANDOM</h2>
+    <pre><code>enable random &lt;interval&gt; -cl &lt;clones&gt;</code></pre>
+    <p>Enables random SSID mode.</p>
+    <p><strong>Interval</strong>: The time in milliseconds between sending probe requests.</p>
+    <p><strong>Clones</strong> [-cl]: The number of SSIDs to be sent with the same name.</p>
+    
+    <h2>DISABLE RANDOM</h2>
+    <pre><code>disable random</code></pre>
+    <p>Disables random SSID mode.</p>
+    
+    <h2>REMOVE</h2>
+    <pre><code>remove &lt;all/aps/stations/names/ssids&gt;</code></pre>
+    <pre><code>remove name &lt;id&gt;</code></pre>
+    <pre><code>remove ssid &lt;id&gt;</code></pre>
+    <p>Removes the specified items from the list.</p>
+    <p><strong>Types</strong> (optional, default = all):</p>
+    <ul>
+        <li>all (-a): Removes all items.</li>
+        <li>access points (-ap): Removes access points.</li>
+        <li>stations (-st): Removes stations.</li>
+        <li>names (-b): Removes saved device names.</li>
+        <li>SSIDs (-ss): Removes saved SSIDs.</li>
+    </ul>
+    <p><strong>ID</strong> (optional): The ID of the specific item you want to remove.</p>
+    
+    <h2>REMOVE CLONES</h2>
+    <pre><code>remove clones</code></pre>
+    <p>Removes all cloned SSIDs from the list.</p>
+
+    <h2>DEAUTH</h2>
+    <pre><code>deauth [-t &lt;time&gt;] [-m &lt;mode&gt;]</code></pre>
+    <p>Starts a deauthentication attack on the selected stations and/or access points.</p>
+    <p><strong>Time</strong> [-t] (optional, default = 0): The time in seconds for which the attack will run. Setting it to 0 means the attack will continue indefinitely.</p>
+    <p><strong>Mode</strong> [-m] (optional, default = 0): The mode of the deauthentication attack. Modes are:</p>
+    <ul>
+        <li>0: Attack both stations and access points.</li>
+        <li>1: Attack only stations.</li>
+        <li>2: Attack only access points.</li>
+    </ul>
+
+    <h2>ENABLE AP</h2>
+    <pre><code>enable ap &lt;ssid&gt; -p &lt;password&gt; [-ch &lt;channel&gt;] [-h]</code></pre>
+    <p>Enables the access point with the specified SSID and optional parameters.</p>
+    <p><strong>SSID</strong>: The SSID of the access point you want to create.</p>
+    <p><strong>Password</strong> [-p] (optional): The password for the WPA2-encrypted network. If not provided, the network will be open.</p>
+    <p><strong>Channel</strong> [-ch] (optional, default = 1): The WiFi channel the AP will use.</p>
+    <p><strong>Hidden</strong> [-h] (optional, default = false): If enabled, the SSID will not be broadcasted.</p>
+
+    <h2>DISABLE AP</h2>
+    <pre><code>disable ap</code></pre>
+    <p>Disables the currently active access point.</p>
+
+    <h2>PACKET MONITOR</h2>
+    <pre><code>enable monitor &lt;channel&gt; [-p]</code></pre>
+    <p>Enables packet monitoring mode on the specified WiFi channel.</p>
+    <p><strong>Channel</strong>: The WiFi channel to monitor.</p>
+    <p><strong>Print</strong> [-p] (optional): Prints the captured packets to the serial monitor.</p>
+
+    <h2>DISABLE MONITOR</h2>
+    <pre><code>disable monitor</code></pre>
+    <p>Disables packet monitoring mode.</p>
+
+    <h2>DEAUTH DETECTION</h2>
+    <pre><code>enable detection [-s]</code></pre>
+    <p>Enables deauthentication detection mode.</p>
+    <p><strong>Select</strong> [-s] (optional): Only detect deauthentication packets targeting selected stations or access points.</p>
+
+    <h2>DISABLE DETECTION</h2>
+    <pre><code>disable detection</code></pre>
+    <p>Disables deauthentication detection mode.</p>
+
+    <h2>CHANNEL HOP</h2>
+    <pre><code>enable hop &lt;delay&gt;</code></pre>
+    <p>Enables channel hopping mode with the specified delay between channels.</p>
+    <p><strong>Delay</strong>: The time in milliseconds between channel switches.</p>
+
+    <h2>DISABLE HOP</h2>
+    <pre><code>disable hop</code></pre>
+    <p>Disables channel hopping mode.</p>
+
+    <h2>GET CHANNEL</h2>
+    <pre><code>get channel</code></pre>
+    <p>Prints the currently active WiFi channel.</p>
+
+    <h2>SET CHANNEL</h2>
+    <pre><code>set channel &lt;channel&gt;</code></pre>
+    <p>Sets the current WiFi channel.</p>
+    <p><strong>Channel</strong>: The WiFi channel to set.</p>
+
+    <h2>SAVE</h2>
+    <pre><code>save</code></pre>
+    <p>Saves all settings to flash memory.</p>
+
+    <h2>RESET</h2>
+    <pre><code>reset</code></pre>
+    <p>Resets the device to its default settings.</p>
+    
+    <h2>EXIT</h2>
+    <pre><code>exit</code></pre>
+    <p>Exits the program or closes the connection.</p>
+</div>
+        <hr>
+       
+        <div class="footer">
+            <a></a>
+            <h5><a href="./../settings">settings »</a></h5>
+        </div>
+    </div>
+</body>
+</html>
