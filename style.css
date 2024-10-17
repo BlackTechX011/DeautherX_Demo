@@ -65,8 +65,8 @@ body {
 }
 
 .home {
-    margin-left: 60px;
-    padding: 60px;
+    margin-left: 40px;
+    padding: 40px;
     transition: margin-left 0.3s;
 }
 .home h1 {
