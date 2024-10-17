@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeautherX Docs</title>
+    <script src="https://kit.fontawesome.com/e674bba739.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./../style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="./../">Home</a>
+        <a href="./../about">about</a>
+        <a href="./../supported‐devices">supported‐devices</a>
+        <a href="./../Installation">Installation</a>
+        <a href="./../serial-commands">serial-commands</a>
+        <a href="./../settings">settings</a>
+        <a href="./../Display-and-button-Setup"  class="active">Display-and-button-Setup</a>
+    </div>
+    
+    <div class="content">
+    <h1>DeautherX</h1>
+    
+  
+                <hr>
+                <div class="info-box">
+                <h2>Before you continue</h2>
+                <p>
+                    Using the display interface is entirely optional. You can also control the Deauther via serial or the web interface.
+                </p>
+                <p>
+                    We cannot start at 0 for this tutorial, so if you find this too tricky, get an Arduino starter kit with good documentation to get a feeling for tinkering with electronics. 😊
+                </p>
+                <p>
+                    I focused on the NodeMCU in this tutorial since it is one of the most popular dev-boards. But every other ESP8266-based board should work just the same.
+                </p>
+            
+                <h2>What you need</h2>
+                <ul>
+                    <li>A breadboard (<a href="https://amzn.to/3HtxH9y">Amazon*</a>, <a href="https://s.click.aliexpress.com/e/_DDdF6Tt">AliExpress*</a>)</li>
+                    <li>Jumper wires (<a href="https://amzn.to/3HrKIk0">Amazon*</a>, <a href="https://s.click.aliexpress.com/e/_DEEniwr">AliExpress*</a>)</li>
+                    <li>An ESP8266 dev board (see <a href="/docs/diy/supported-devices">Supported Devices</a>) (<a href="https://amzn.to/3YbdDyN">Amazon*</a>, <a href="https://s.click.aliexpress.com/e/_Ddd7piL">AliExpress*</a>)</li>
+                    <li>At least 3 buttons (3 are required, optionally up to 6) (<a href="https://amzn.to/3WdXRkI">Amazon*</a>, <a href="https://s.click.aliexpress.com/e/_DDPYp0R">AliExpress*</a>)</li>
+                    <li>An SSD1306 or SH1106 OLED display with 128x64 pixels (other resolutions are <strong>not</strong> supported) (<a href="https://amzn.to/3FNekar">Amazon*</a>, <a href="https://s.click.aliexpress.com/e/_DB5UkwB">AliExpress*</a>)</li>
+                    <li>Optional: an RGB LED (3 single LEDs or a Neopixel will also work) (<a href="https://amzn.to/3Pn0bDJ">Amazon*</a>, <a href="https://s.click.aliexpress.com/e/_DBmkHbV">AliExpress*</a>)</li>
+                    <li>Optional but recommended: 2x 10k ohm resistors (<a href="https://amzn.to/3PpEeEm">Amazon*</a>, <a href="https://s.click.aliexpress.com/e/_DlZSG8x">AliExpress*</a>)</li>
+                </ul>
+            
+                <h2>Wire everything up</h2>
+                <p>Look up the pinout references for your board. Here's one for the NodeMCU:</p>
+                <img src="https:/deauther.com/img/diy/NODEMCU_DEVKIT_V1.0_PINMAP.png" alt="NodeMCU pinout">
+                <p>We have a limited amount of pins, and not every pin can be used for everything:</p>
+                <div class="tip-box">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>NodeMCU Pin</th>
+                            <th>GPIO</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>D0</td>
+                            <td>GPIO 16</td>
+                            <td>No I2C or PWM. Don't use this pin for the RGB LED or Display.</td>
+                        </tr>
+                        <tr>
+                            <td>D1</td>
+                            <td>GPIO 5</td>
+                            <td>OK</td>
+                        </tr>
+                        <tr>
+                            <td>D2</td>
+                            <td>GPIO 4</td>
+                            <td>OK</td>
+                        </tr>
+                        <tr>
+                            <td>D3</td>
+                            <td>GPIO 0</td>
+                            <td>Connected to flash button.</td>
+                        </tr>
+                        <tr>
+                            <td>D4</td>
+                            <td>GPIO 2</td>
+                            <td>Needs pull-up resistor.</td>
+                        </tr>
+                        <tr>
+                            <td>D5</td>
+                            <td>GPIO 14</td>
+                            <td>OK</td>
+                        </tr>
+                        <tr>
+                            <td>D6</td>
+                            <td>GPIO 12</td>
+                            <td>OK</td>
+                        </tr>
+                        <tr>
+                            <td>D7</td>
+                            <td>GPIO 13</td>
+                            <td>OK</td>
+                        </tr>
+                        <tr>
+                            <td>D8</td>
+                            <td>GPIO 15</td>
+                            <td>Needs pull-down resistor</td>
+                        </tr>
+                        <tr>
+                            <td>D9</td>
+                            <td>GPIO 3</td>
+                            <td>RX (Serial). Avoid this pin.</td>
+                        </tr>
+                        <tr>
+                            <td>D10</td>
+                            <td>GPIO 1</td>
+                            <td>TX (Serial). Avoid this pin.</td>
+                        </tr>
+                        <tr>
+                            <td>SD2</td>
+                            <td>GPIO 9</td>
+                            <td>Used for Flash. Avoid this pin in QIO mode.</td>
+                        </tr>
+                        <tr>
+                            <td>SD3</td>
+                            <td>GPIO 10</td>
+                            <td>Used for Flash. Avoid this pin in QIO mode.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                <h3>Buttons</h3>
+                <p>Connect each button to a GPIO and GND. Like in this Arduino tutorial: <a href="https://www.arduino.cc/en/Tutorial/InputPullupSerial">Input Pullup Serial Tutorial</a>.</p>
+            
+                <h3>LED</h3>
+                <p>
+                    The LED is used as an optional indicator. For example, Green = idle, Blue = scanning, and RED = deauth attack detected (when scanning).
+                    You can use single digital LEDs, an RGB LED, or a Neopixel LED (WS2812b).
+                </p>
+                <p>By default, the LED on GPIO 16 (NodeMCU onboard LED) and the LED on GPIO 2 (ESP-12 and ESP-07 on-module LED) are used.</p>
+            
+                <h2>Setup with I2C OLED</h2>
+                <div class="tip-box">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Display</th>
+                            <th>GPIO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GND</td>
+                            <td>GND</td>
+                        </tr>
+                        <tr>
+                            <td>VCC/VDD</td>
+                            <td>VCC / 3.3V</td>
+                        </tr>
+                        <tr>
+                            <td>SCL/CLK/SCK</td>
+                            <td>GPIO 4 (D2)</td>
+                        </tr>
+                        <tr>
+                            <td>SDA</td>
+                            <td>GPIO 5 (D1)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                <div class="tip-box">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Button</th>
+                            <th>GPIO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>UP</td>
+                            <td>GPIO 14 (D5)</td>
+                        </tr>
+                        <tr>
+                            <td>Down</td>
+                            <td>GPIO 12 (D6)</td>
+                        </tr>
+                        <tr>
+                            <td>A</td>
+                            <td>GPIO 13 (D7)</td>
+                        </tr>
+                        <tr>
+                            <td>B</td>
+                            <td>GPIO 2 (D4)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                <div class="tip-box">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>NEOPIXEL LED</th>
+                            <th>GPIO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GND</td>
+                            <td>GND</td>
+                        </tr>
+                        <tr>
+                            <td>VCC</td>
+                            <td>VCC/3.3V</td>
+                        </tr>
+                        <tr>
+                            <td>DIN</td>
+                            <td>GPIO 15 (D8)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                <div class="tip-box">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Light</th>
+                            <th>GPIO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>GND</td>
+                            <td>GND</td>
+                        </tr>
+                        <tr>
+                            <td>VCC</td>
+                            <td>GPIO 16 (D0)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+                <h2>Testing everything</h2>
+                <p>When everything is correctly set up and uploaded, open the serial monitor with Arduino (Tools &gt; Serial Monitor).</p>
+                <ul>
+                    <li><strong>Set the baud rate to <code>115200</code> and select <code>Newline</code>.</strong> If you see it resetting every few seconds, check the code and make sure you didn't use the same pin twice.</li>
+                    <li>
+                        If there's no image on display, type <code>set display true;;save settings</code> and press enter. Now press the reset button on the board to restart it. If the display doesn't show anything, something is off. Check your connections and the code.
+                    </li>
+                    <li>To test all buttons, enter <code>screen mode buttontest</code>. To get back, use <code>screen mode menu</code>.</li>
+                    <li>To test the LED(s), you can run <code>led &lt;r&gt; &lt;g&gt; &lt;b&gt;</code>. For example, <code>led 255 0 0</code> should turn the LED red.</li>
+                </ul>
+                <p>
+                    If you still have problems with the display, try running an example to test if it's a software or a hardware problem. This is the display library used in the Deauther: <a href="https://github.com/squix78/esp8266-oled-ssd1306">esp8266-oled-ssd1306</a>.
+                    You can find examples there. Try to get those running.
+                </p>
+                </div>
+
+            
+        <hr>
+       
+        <div class="footer">
+            <a></a>
+            <h5><a href="./../settings">settings »</a></h5>
+        </div>
+    </div>
+</body>
+</html>
